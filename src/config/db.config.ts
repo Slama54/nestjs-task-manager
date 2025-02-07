@@ -3,9 +3,13 @@ import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConne
 import * as path from "path";
 
 export default():PostgresConnectionOptions=>({
-    url:process.env.dbUrl,
-    type:"postgres",
-    port:3306,
+    type: "postgres",
+    host: process.env.DB_HOST || "localhost",
+    port: Number(process.env.DB_PORT) || 5432,
+    username: process.env.DB_USER || "postgres",
+    password: process.env.DB_PASSWORD || "admin",
+    database: process.env.DB_NAME || "taskdb",
+   
     entities: [path.resolve(__dirname, '..') + '/**/*.entity{.ts,.js}'],
     synchronize:true,
 })
